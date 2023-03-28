@@ -8,7 +8,8 @@ def fetchOnline(year, day):
         return
 
     # Set the session cookie : get manually from the browser
-    session_cookie = "session=" + open("session_cookie.txt", "r").read().strip()
+    session_cookie = open("../../session_cookie.txt", "r").read()
+    print(session_cookie)
     cookie = cookiejar.CookieJar()
     cookie.set_cookie(cookiejar.Cookie(version=0, name='session',
                                        value=session_cookie,
@@ -30,4 +31,4 @@ def fetchOnline(year, day):
     response = requests.get(url, cookies=cookie)
 
     # Print the input data
-    return response.text.strip()
+    return response.text
