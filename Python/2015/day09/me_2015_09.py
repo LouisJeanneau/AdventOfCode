@@ -42,3 +42,10 @@ def tsp_brute_force(dist_matrix):
 print("tsp_brute_force = ", tsp_brute_force(dist_matrix)[0])
 print("tsp_brute_force = ", tsp_brute_force(dist_matrix)[1])
 # Part 2
+
+for i in range(len(cities_set)):
+    for j in range(len(cities_set)):
+        if dist_matrix[i][j] == 10000:
+            dist_matrix[i][j] = 0
+
+print("tsp_brute_force = ", -tsp_brute_force(-dist_matrix)[0])
