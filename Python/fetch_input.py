@@ -3,12 +3,12 @@ import http.cookiejar as cookiejar
 
 
 def fetchOnline(year, day):
-    if year < 2015 or year > 2022 or day < 1 or day > 25:
+    if year < 2015 or year > 2023 or day < 1 or day > 25:
         print("Invalid year or day")
         return
 
     # Set the session cookie : get manually from the browser
-    session_cookie = open("../../session_cookie.txt", "r").read()
+    session_cookie = open("session_cookie.txt", "r").read()
     print(session_cookie)
     cookie = cookiejar.CookieJar()
     cookie.set_cookie(cookiejar.Cookie(version=0, name='session',
