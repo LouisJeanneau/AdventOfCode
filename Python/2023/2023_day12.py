@@ -45,6 +45,11 @@ for line in data:
     l = len(puzzle)
     numberGroup = len(hint)
     total = 0
+    states = dict()
+    states[(0,0)] = 1
+    for c in puzzle:
+        nextSteps = []
+
 
 
     def explore(index, group, amount):
