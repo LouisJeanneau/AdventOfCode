@@ -49,8 +49,9 @@ for line in data:
     states[(0,0)] = 1
     for c in puzzle:
         nextSteps = []
-
-
+        for state, count in states.items():
+            group, amount = state
+            if c != "."
 
     def explore(index, group, amount):
         global total
@@ -64,21 +65,16 @@ for line in data:
         elif group >= numberGroup:
             return
 
-        elif line[index] == "?":
-            # behave as #
+        if line[index] != ".":
             explore(index + 1, group, amount + 1)
-            # behave as .
-            explore(index + 1, group + int(amount != 0), 0)
-        elif line[index] == "#":
-            explore(index + 1, group, amount + 1)
-        elif line[index] == ".":
+        elif line[index] != "#":
             if amount == 0:
                 explore(index + 1, group, 0)
             elif amount == hint[group]:
                 explore(index + 1, group + int(amount != 0), 0)
 
 
-    explore(0, 0, 0)
+    #explore(0, 0, 0)
     print(total)
 
 print("total = ", total)
