@@ -1,5 +1,6 @@
 import itertools
 import re
+from collections import defaultdict
 
 import constraint as cstt
 
@@ -35,46 +36,42 @@ print("input = ", data)
 
 
 # Part 2
+
+total = 0
 for line in data:
     print(line)
     puzzle, hint = line.split(" ")
-    # puzzle = '?'.join([puzzle]*5)
-    # hint = ','.join([hint]*5)
+    puzzle = '?'.join([puzzle]*5)
+    hint = ','.join([hint]*5)
     hint = [int(i) for i in re.findall(r'\d+', hint)]
-    permutations = dict()
+
     l = len(puzzle)
     numberGroup = len(hint)
-    total = 0
-    states = dict()
+    states = defaultdict(int)
     states[(0,0)] = 1
     for c in puzzle:
-        nextSteps = []
-        for state, count in states.items():
-            group, amount = state
-            if c != "."
-
-    def explore(index, group, amount):
-        global total
-        if line[index] == " ":
-            if group == numberGroup and amount == 0:
-                total += 1
-            elif group == numberGroup - 1 and amount == hint[group]:
-                total += 1
-        elif group < numberGroup and hint[group] < amount:
-            return
-        elif group >= numberGroup:
-            return
-
-        if line[index] != ".":
-            explore(index + 1, group, amount + 1)
-        elif line[index] != "#":
-            if amount == 0:
-                explore(index + 1, group, 0)
-            elif amount == hint[group]:
-                explore(index + 1, group + int(amount != 0), 0)
+        next = []
+        for key, perm_count in states.items():
+            group_id, group_amount = key
+            if c != '#':
+                if group_amount == 0:
+                    next.append((group_id, group_amount, perm_count))
+                elif group_amount == hint[group_id]:
+                    next.append((group_id + 1, 0, perm_count))
+            if c != '.':
+                if group_id < len(hint) and group_amount < hint[group_id]:
+                    next.append((group_id, group_amount + 1, perm_count))
+        states.clear()
+        for group_id, group_amount, perm_count in next:
+            states[(group_id, group_amount)] += perm_count
 
 
+    def is_valid(group_id, group_amount):
+        return group_id == len(hint) or group_id == len(hint) - 1 and group_amount == hint[group_id]
+
+
+    total += sum(v for k, v in states.items() if is_valid(*k))
     #explore(0, 0, 0)
-    print(total)
+    #print(total)
 
 print("total = ", total)
