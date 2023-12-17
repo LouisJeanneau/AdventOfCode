@@ -13,12 +13,7 @@ print("input = ", data)
 # Part 1
 print("Part 1")
 map = np.array(data)
-map = map.T
-cubes = np.where(map == '#')
-cubesPositions = list(zip(cubes[0], cubes[1]))
-cubesPositions.extend([(i, -1) for i in range(len(map))])
-cubesPositions.extend([(i, len(map[0])) for i in range(len(map))])
-cubesPositions = sorted(cubesPositions, key=lambda x: (x[0], x[1]))
+map = np.rot90(map)
 l = len(map[0])
 total = 0
 for x in range(len(map)):
