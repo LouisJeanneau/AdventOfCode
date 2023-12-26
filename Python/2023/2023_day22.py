@@ -52,7 +52,6 @@ print("time", time.time() - start)
 # scan
 total = 0
 for line in data:
-    # c = deepcopy(occupied)
     inter = interpolate(line)
     for p in inter:
         occupied.remove(p)
@@ -76,5 +75,27 @@ print(total)
 print("time", time.time() - start)
 
 # Part 2
-# for line in data:
-#     c = deepcopy(occupied)
+print("Part 2")
+start = time.time()
+total = 0
+for line in data:
+    occupiedcopy = set(occupied)
+    inter = interpolate(line)
+    for p in inter:
+        occupiedcopy.remove(p)
+    for t in [i for i in data if i != line]:
+        flag = True
+        tc = deepcopy(t)
+        for p in interpolate(tc):
+            occupiedcopy.remove(p)
+        while canFall(tc, occupiedcopy):
+            if flag:
+                total += 1
+                flag = False
+            tc = looseHeight(tc)
+        for p in interpolate(tc):
+            occupiedcopy.add(p)
+    # for p in inter:
+    #     occupied.add(p)
+print(total)
+print("time", time.time() - start)
