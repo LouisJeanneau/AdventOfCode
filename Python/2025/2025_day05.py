@@ -25,3 +25,22 @@ for ingredient in data[index:]:
             answer+=1
             break
 print(f'Part 1 : {answer}')
+
+# Part 2
+import portion
+answer = 0
+index = 0
+new_fresh_interval_set = portion.empty()
+while data[index] != "":
+    left, right = map(int, data[index].split('-'))
+    added = portion.closed(left, right)
+    new_fresh_interval_set |=  added
+    index += 1
+# print(new_fresh_interval_set)
+
+# for ID in range(new_fresh_interval_set.lower, new_fresh_interval_set.upper+1):
+#     answer += (ID in new_fresh_interval_set)
+
+for ID_range in new_fresh_interval_set:
+    answer += ID_range.upper - ID_range.lower + 1
+print(f'Part 2 : {answer}')
