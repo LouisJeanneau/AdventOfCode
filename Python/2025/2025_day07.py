@@ -34,6 +34,25 @@ print(f'Part 1 : {answer}')
 
 # Part 2
 answer = 0
+start_y = data[0].find('S')
 
+def explore(map_2d, position, cache: dict):
+    x, y = position
+    if position in cache:
+        return cache[position]
+    elif x >= len(map_2d):
+        return 1
+    elif map_2d[x][y] == '^':
+        res = explore(map_2d, (x+1,y-1), cache) + explore(map_2d, (x+1,y+1), cache)
+        cache[(x,y)] = res
+        return res
+    else:
+        res = explore(map_2d, (x+1,y), cache)
+        cache[(x,y)] = res
+        return res
+
+map_2d = data[2::2]
+cache_2d = dict()
+answer = explore(map_2d, (0, start_y), cache_2d)
 
 print(f'Part 2 : {answer}')
