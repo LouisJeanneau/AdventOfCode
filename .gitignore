@@ -1,3 +1,5 @@
 /venv/
 /.idea/
-input.txt
+*input.txt
+Python/__pycache__/*
+session_cookie.txt
