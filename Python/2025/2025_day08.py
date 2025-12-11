@@ -55,6 +55,27 @@ print(f'Part 1 : {answer}')
 
 # Part 2
 answer = 0
-
-
+set_belonging = [-1]*points
+set_belonging_free_id = 0
+for connection in distances_sorted:
+    ind_a, ind_b = connection[0]
+    set_a, set_b = set_belonging[ind_a], set_belonging[ind_b]
+    if set_a == -1 and set_b == -1:
+        # A or B both not in a set, create a new one
+        set_belonging[ind_a] = set_belonging_free_id
+        set_belonging[ind_b] = set_belonging_free_id
+        set_belonging_free_id += 1
+        continue
+    elif set_a != -1 and set_b != -1:
+        # Both in a set, we merge the sets
+        set_belonging = [set_a if set_belonging[index] == set_b else set_belonging[index] for index in range(points)]    
+    elif set_a == -1:
+        set_belonging[ind_a] = set_b     
+    else:
+        set_belonging[ind_b] = set_a
+    
+    # check if we have one large set
+    if set_belonging.count(set_belonging[0]) == points:
+        answer = data[ind_a][0] * data[ind_b][0]
+        break
 print(f'Part 2 : {answer}')
