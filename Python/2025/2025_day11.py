@@ -1,4 +1,4 @@
-
+from functools import lru_cache
 import os
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -36,6 +36,23 @@ print(f'Part 1 : {answer}')
 
 # Part 2
 answer = 0
-
-
+# Same shit, more state
+@lru_cache(None)
+def count_paths(current, has_fft, has_dac):
+    if current == 'fft':
+        has_fft = True
+    if current == 'dac':
+        has_dac = True
+    
+    if current == 'out':
+        if (has_fft and has_dac):
+            return 1
+        else:
+            return 0
+    
+    r = 0
+    for neighbor in next_nodes[current]:
+        r += count_paths(neighbor, has_fft, has_dac)
+    return r
+answer = count_paths("svr", 0, 0)
 print(f'Part 2 : {answer}')
